@@ -18,17 +18,17 @@ class WallStop():
 		rate = rospy.Rate(10)
 		data = Twist()
 
-	accel = 0.02
-	data.linear.x= 0.0	
-	while not rospy.is_shutdown():
-		data.linear.x += accel	
+		accel = 0.02
+		data.linear.x= 0.0	
+		while not rospy.is_shutdown():
+			data.linear.x += accel	
 
-		if self.sensor_values.sum_all >= 50: data.linear.x = 0.0
-		elif data.linear.x <= 0.2:           data.linear.x = 0.2
-		elif data.linear.x >= 0.8:           data.linear.x = 0.8
+			if self.sensor_values.sum_all >= 50: data.linear.x = 0.0
+			elif data.linear.x <= 0.2:           data.linear.x = 0.2
+			elif data.linear.x >= 0.8:           data.linear.x = 0.8
 			
-		self.cmd_vel.publish(data)
-		rate.sleep()
+			self.cmd_vel.publish(data)
+			rate.sleep()
 
 if __name__ == '__main__':
 	rospy.init_node('wall_stop')
